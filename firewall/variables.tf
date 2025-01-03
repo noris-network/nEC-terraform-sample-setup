@@ -16,12 +16,6 @@ variable "vdc_org_name" {
   default     = "1-1"
 }
 
-variable "vcd_vdc" {
-  description = "Default VDC of Customer."
-  type        = string
-  default     = "1-1-nbg6ld4-w01-shared"
-}
-
 variable "vdc_group_name" {
   description = "VDC Group of Customer."
   type        = string

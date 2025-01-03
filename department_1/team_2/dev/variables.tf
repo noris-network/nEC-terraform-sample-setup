@@ -16,12 +16,6 @@ variable "vdc_org_name" {
   default     = "1-1"
 }
 
-variable "vcd_vdc" {
-  description = "Default VDC of Customer"
-  type        = string
-  default     = "HA-DN6A-1-1"
-}
-
 variable "vdc_group_name" {
   description = "VDC Group of Customer."
   type        = string
