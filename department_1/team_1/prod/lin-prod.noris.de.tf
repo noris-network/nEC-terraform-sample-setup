@@ -28,24 +28,31 @@ groups:
   - noris
 users:
 ${var.cloud_init_config["users"]["root"]}
-network:
-  version: 2
-  ethernets:
-    eth0:
-      addresses:
-        - "172.16.0.18/28"
-        - "2001:780:0:2:::18"
-      routes:
-        - to: 0.0.0.0/0
-          via: 172.16.0.17
-          metric: 1
-          on-link: true
-        - to: ::/0
-          via: 2001:780:0:2:::1
-          metric: 1
-          on-link: true
-${var.cloud_init_config["network_nameservers"]}
 write_files:
+  - path: /etc/cloud/cloud.cfg.d/99_network.cfg
+    owner: root/root
+    permissions: 0o644
+    defer: true
+    content: |
+      instance-id: lin-prod.noris.de
+      local-hostname: lin-prod.noris.de
+      network:
+        version: 2
+        ethernets:
+          eth0:
+            addresses:
+              - "172.16.0.18/28"
+              - "2001:780:0:2:::18"
+            routes:
+              - to: 0.0.0.0/0
+                via: 172.16.0.17
+                metric: 1
+                on-link: true
+              - to: ::/0
+                via: 2001:780:0:2:::1
+                metric: 1
+                on-link: true
+      ${var.cloud_init_config["network_nameservers"]}
 ${var.cloud_init_config["resolv_conf"]}
 runcmd:
 ${var.cloud_init_config["cmd_debian_netconfig"]}
