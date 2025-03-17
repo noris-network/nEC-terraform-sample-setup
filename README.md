@@ -3,7 +3,27 @@
 This example codebase shows a method of using Terraform / OpenTofu with [VMware Cloud Director](https://www.vmware.com/products/cloud-infrastructure/cloud-director).
 Goal is, to devide the setup as much as possible for use with multiple teams as well as keeping the blast radius down to a minimum.
 This codebase doesn't use any modules, instead uses plain resources from the [Terraform vCD provider](https://registry.terraform.io/providers/vmware/vcd/latest/docs).
-This also set an extremely low barrier to entry for newcomers to Terraform as well as this codebase.
+This also sets an extremely low barrier to entry for newcomers to Terraform as well as this codebase.
+
+If haven't purchased the AVI Loadbalancer feature you can simply delete any loadbalancer.tf files as well as the reference to the Service Engine Group in data.tf.
+
+## How to find out names of resources (as of VMware Cloud Director 10.6)
+* Edge Gateway names:
+Networking -> Edge Gateways
+
+* Cluster names:
+Networking -> Datacenter Groups -> Your_DC_Group -> Participating VDCs
+
+* Service Engine Group names:
+Networking -> Edge Gateways -> Your_Edge_Gateway -> Loadbalancer -> Service Engine Groups
+
+If there is no "Service Engine Groups" menu entry check if feature is enabled in "General Settings" of Loadbalancer
+
+* Catalog names:
+Content Hub -> Catalogs
+
+* vApp image names:
+Content Hub -> Catalogs -> Your_Catalog_Name -> vApp Templates
 
 ## Dependencies
 
