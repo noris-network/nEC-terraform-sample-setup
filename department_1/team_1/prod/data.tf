@@ -17,12 +17,12 @@ data "vcd_nsxt_edgegateway" "nsxt_edgegateway" {
 # Gather info about vApp-Templates in the Catalog
 #############
 data "vcd_catalog" "catalog" {
-  name = "imagepipeline"
+  name = "images"
   org  = "Catalog"
 }
 
-data "vcd_catalog_vapp_template" "debian12" {
-  name       = "debian12"
+data "vcd_catalog_vapp_template" "ubuntu2404" {
+  name       = "ubuntu2404"
   catalog_id = data.vcd_catalog.catalog.id
 }
 

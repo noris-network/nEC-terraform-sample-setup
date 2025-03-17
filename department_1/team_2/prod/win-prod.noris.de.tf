@@ -7,7 +7,7 @@ resource "vcd_vm" "win-prod" {
   cpu_hot_add_enabled    = true
   memory                 = (1024 * 16)
   memory_hot_add_enabled = true
-  vapp_template_id       = data.vcd_catalog_vapp_template.noris-Windows_Server_2022_Standard_English.id
+  vapp_template_id       = data.vcd_catalog_vapp_template.noris-Windows_Server_2025_Standard_English_vDC.id
 
   network {
     type                         = "org"

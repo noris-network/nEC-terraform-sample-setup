@@ -7,7 +7,7 @@ resource "vcd_vm" "lin-dev" {
   cpu_hot_add_enabled    = true
   memory                 = (1024 * 16)
   memory_hot_add_enabled = true
-  vapp_template_id       = data.vcd_catalog_vapp_template.debian12.id
+  vapp_template_id       = data.vcd_catalog_vapp_template.ubuntu2404.id
 
   network {
     type                         = "org"

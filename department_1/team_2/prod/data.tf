@@ -17,12 +17,12 @@ data "vcd_nsxt_edgegateway" "nsxt_edgegateway" {
 # Gather info about vApp-Templates in the Catalog
 #############
 data "vcd_catalog" "catalog" {
-  name = "imagepipeline"
+  name = "images"
   org  = "Catalog"
 }
 
-data "vcd_catalog_vapp_template" "noris-Windows_Server_2022_Standard_English" {
-  name       = "noris-Windows Server 2022 Standard English"
+data "vcd_catalog_vapp_template" "noris-Windows_Server_2025_Standard_English_vDC" {
+  name       = "noris-Windows Server 2025 Standard English vDC"
   catalog_id = data.vcd_catalog.catalog.id
 }
 
