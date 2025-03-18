@@ -107,7 +107,7 @@ terraform {
 
 This also needs to have AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY exported on the console.
 
-# Using OpenTufo / Terraform
+# Using OpenTofu / Terraform
 
 ## Export Environment vars
 
