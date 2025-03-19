@@ -8,5 +8,7 @@ resource "vcd_network_routed_v2" "PROD-NET" {
   prefix_length           = 28
   secondary_gateway       = "2001:780:0:2::0:0:0:1"
   secondary_prefix_length = 64
+  dns1                    = "62.128.1.42"
+  dns2                    = "2001:780:53::1"
   edge_gateway_id         = data.vcd_nsxt_edgegateway.nsxt_edgegateway.id
 }
