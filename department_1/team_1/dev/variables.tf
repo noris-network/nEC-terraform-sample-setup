@@ -34,7 +34,7 @@ variable "vdc_edge_gateway_name" {
 variable "cloud_init_default_config" {
   description = "cloud-init config snippets that can be supplied when creating a Linux VM. Keep the indentation!"
   type        = any
-  default = <<EOT
+  default     = <<EOT
 users:
   - default
   - name: root

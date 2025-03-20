@@ -34,7 +34,7 @@ variable "vdc_edge_gateway_name" {
 variable "cloud_init_default_config" {
   description = "cloud-init default config for VMs"
   type        = any
-  default = <<EOT
+  default     = <<EOT
 users:
   - name: root
     ssh_authorized_keys:
