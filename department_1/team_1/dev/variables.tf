@@ -29,42 +29,29 @@ variable "vdc_edge_gateway_name" {
 }
 
 #############
-# cloud-init config snippets
+# cloud-init config
 #############
-variable "cloud_init_config" {
+variable "cloud_init_default_config" {
   description = "cloud-init config snippets that can be supplied when creating a Linux VM. Keep the indentation!"
   type        = any
-  default = {
-    users = {
-      root = <<EOT
+  default = <<EOT
+users:
+  - default
   - name: root
     ssh_authorized_keys:
-    - ssh-rsa AAAAB3Nza8Og8/u2bfQ== root@noris.de
-EOT
-    }
-    cmd_debian_netconfig = <<EOT
-  - cloud-init devel net-convert --network-data /etc/cloud/cloud.cfg.d/99_network.cfg --kind yaml --output-kind eni -D debian -d /
-  - systemctl restart networking
-EOT
-    cmd_rhel_netconfig   = <<EOT
-  - nmcli connection delete "System eth0"  # delete System eth0 connection as it causes our config to be ignored
-  - cloud-init devel net-convert --network-data /etc/cloud/cloud.cfg.d/99_network.cfg --kind yaml --output-kind network-manager -D rhel -d /
-  - systemctl restart NetworkManager
-EOT
-    network_nameservers  = <<EOT
-            nameservers:
-              addresses:
-                - "62.128.1.42"
-                - "62.128.1.53"
-EOT
-    resolv_conf          = <<EOT
-  - path: /etc/resolv.conf
-    owner: root/root
-    permissions: 0o644
-    defer: true
+      - "ssh-rsa AAAAB3Nza8Og8/u2bfQ== imperator@noris.de"
+  - name: imperator
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - "ssh-rsa AAAAB3Nza8Og8/u2bfQ== imperator@noris.de"
+    groups: [noris]
+groups:
+  - noris
+write_files:
+  - path: /etc/motd
+    owner: root:root
+    append: true
     content: |
-      nameserver 62.128.1.42
-      nameserver 62.128.1.53
+      "You may fire when ready" - this is only a dev system.
 EOT
-  }
 }
