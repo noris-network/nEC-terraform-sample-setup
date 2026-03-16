@@ -30,8 +30,8 @@ resource "vcd_nsxt_firewall" "nsxt_firewall" {
       vcd_nsxt_ip_set.NORIS-BLK1.id
     ]
     destination_ids = [
-      data.vcd_nsxt_ip_set.DEV_NET.id,
-      data.vcd_nsxt_ip_set.PROD_NET.id,
+      data.vcd_nsxt_ip_set.DEV-NET.id,
+      data.vcd_nsxt_ip_set.PROD-NET.id,
     ]
     app_port_profile_ids = [vcd_nsxt_app_port_profile.icinga_tcp5666.id]
   }

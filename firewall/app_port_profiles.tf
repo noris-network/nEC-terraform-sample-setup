@@ -7,5 +7,6 @@ resource "vcd_nsxt_app_port_profile" "icinga_tcp5666" {
     protocol = "TCP"
     port     = ["5666"]
   }
-  scope = "TENANT"
+  scope      = "TENANT"
+  context_id = data.vcd_vdc_group.vdc_group.id
 }
