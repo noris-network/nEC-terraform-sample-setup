@@ -12,11 +12,11 @@ resource "vcd_vm" "win-dev" {
   network {
     type                         = "org"
     adapter_type                 = "VMXNET3"
-    name                         = data.vcd_network_routed_v2.PROD-NET.name
+    name                         = data.vcd_network_routed_v2.DEV-NET.name
     ip_allocation_mode           = "MANUAL"
-    ip                           = "172.16.0.2"
+    ip                           = "172.16.0.3"
     secondary_ip_allocation_mode = "MANUAL"
-    secondary_ip                 = "2001:780:0:1::2"
+    secondary_ip                 = "2001:780:0:1:0:0:0:3"
     is_primary                   = true
   }
 

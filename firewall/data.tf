@@ -16,14 +16,11 @@ data "vcd_nsxt_edgegateway" "nsxt_edgegateway" {
 #############
 # Gather info about Application Port Profiles that ship with vCD by default
 #############
-data "vcd_nsxt_manager" "main" {
-  name = var.nsxt_host
-}
 
 data "vcd_nsxt_app_port_profile" "SSH" {
   name       = "SSH"
   scope      = "SYSTEM"
-  context_id = data.vcd_nsxt_manager.main.id
+  context_id = data.vcd_vdc_group.vdc_group.id
 }
 
 #############
@@ -49,12 +46,12 @@ data "vcd_nsxt_ip_set" "win_prod" {
   name            = "win_prod"
 }
 
-data "vcd_nsxt_ip_set" "DEV_NET" {
+data "vcd_nsxt_ip_set" "DEV-NET" {
   edge_gateway_id = data.vcd_nsxt_edgegateway.nsxt_edgegateway.id
-  name            = "DEV_NET"
+  name            = "DEV-NET"
 }
 
-data "vcd_nsxt_ip_set" "PROD_NET" {
+data "vcd_nsxt_ip_set" "PROD-NET" {
   edge_gateway_id = data.vcd_nsxt_edgegateway.nsxt_edgegateway.id
-  name            = "PROD_NET"
+  name            = "PROD-NET"
 }

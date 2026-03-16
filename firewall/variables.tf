@@ -27,8 +27,4 @@ variable "vdc_edge_gateway_name" {
   type        = string
   default     = "T1-1-1-nbg"
 }
-variable "nsxt_host" {
-  description = "NSXT API endpoint URL."
-  type        = string
-  default     = "nsx01-nbg6-w01.nec.noris.de"
-}
+

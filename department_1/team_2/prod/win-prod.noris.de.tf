@@ -16,7 +16,7 @@ resource "vcd_vm" "win-prod" {
     ip_allocation_mode           = "MANUAL"
     ip                           = "172.16.0.19"
     secondary_ip_allocation_mode = "MANUAL"
-    secondary_ip                 = "2001:780:0:2:::19"
+    secondary_ip                 = "2001:780:0:2:0:0:0:19"
     is_primary                   = true
   }
 
