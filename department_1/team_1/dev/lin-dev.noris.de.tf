@@ -21,41 +21,22 @@ resource "vcd_vm" "lin-dev" {
   }
 
   guest_properties = {
+    "password" = "T0p53cr3t"
     "user-data" = base64encode(<<EOT
 #cloud-config
-hostname: lin-dev.noris.de
-groups:
-  - noris
-users:
-${var.cloud_init_config["users"]["root"]}
-write_files:
-  - path: /etc/cloud/cloud.cfg.d/99_network.cfg
-    owner: root/root
-    permissions: 0o644
-    defer: true
-    content: |
-      instance-id: lin-dev.noris.de
-      local-hostname: lin-dev.noris.de
-      network:
-        version: 2
-        ethernets:
-          eth0:
-            addresses:
-              - "172.16.0.2/28"
-              - "2001:780:0:1::2/64"
-            routes:
-              - to: 0.0.0.0/0
-                via: 172.16.0.1
-                metric: 1
-                on-link: true
-              - to: ::/0
-                via: 2001:780:0:1::1
-                metric: 1
-                on-link: true
-      ${var.cloud_init_config["network_nameservers"]}
-${var.cloud_init_config["resolv_conf"]}
-runcmd:
-${var.cloud_init_config["cmd_debian_netconfig"]}
+${var.cloud_init_default_config}
+bootcmd:
+  - [ sh, -c, "while [ ! -e /dev/sdb ]; do echo 'Waiting for /dev/sdb to be available'; sleep 1; done" ]
+disk_setup:
+  /dev/sdb:
+    layout: true
+    table_type: gpt
+    overwrite: false
+fs_setup:
+  - device: /dev/sdb1
+    filesystem: ext4
+mounts:
+  - [/dev/sdb1, /mnt]
 EOT
     )
   }

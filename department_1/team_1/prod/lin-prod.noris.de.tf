@@ -16,46 +16,26 @@ resource "vcd_vm" "lin-prod" {
     ip_allocation_mode           = "MANUAL"
     ip                           = "172.16.0.18"
     secondary_ip_allocation_mode = "MANUAL"
-    secondary_ip                 = "2001:780:0:2:::18"
+    secondary_ip                 = "2001:780:0:2::18"
     is_primary                   = true
   }
 
   guest_properties = {
     "user-data" = base64encode(<<EOT
 #cloud-config
-hostname: lin-prod.noris.de
-groups:
-  - noris
-users:
-${var.cloud_init_config["users"]["root"]}
-write_files:
-  - path: /etc/cloud/cloud.cfg.d/99_network.cfg
-    owner: root/root
-    permissions: 0o644
-    defer: true
-    content: |
-      instance-id: lin-prod.noris.de
-      local-hostname: lin-prod.noris.de
-      network:
-        version: 2
-        ethernets:
-          eth0:
-            addresses:
-              - "172.16.0.18/28"
-              - "2001:780:0:2:::18"
-            routes:
-              - to: 0.0.0.0/0
-                via: 172.16.0.17
-                metric: 1
-                on-link: true
-              - to: ::/0
-                via: 2001:780:0:2:::1
-                metric: 1
-                on-link: true
-      ${var.cloud_init_config["network_nameservers"]}
-${var.cloud_init_config["resolv_conf"]}
-runcmd:
-${var.cloud_init_config["cmd_debian_netconfig"]}
+${var.cloud_init_default_config}
+bootcmd:
+  - [ sh, -c, "while [ ! -e /dev/sdb ]; do echo 'Waiting for /dev/sdb to be available'; sleep 1; done" ]
+disk_setup:
+  /dev/sdb:
+    layout: true
+    table_type: gpt
+    overwrite: false
+fs_setup:
+  - device: /dev/sdb1
+    filesystem: ext4
+mounts:
+  - [/dev/sdb1, /mnt]
 EOT
     )
   }
